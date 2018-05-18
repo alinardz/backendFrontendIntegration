@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {signup} from '../services/authService';
+import {signup, login} from '../services/authService';
 
 export class LoginPage extends Component{
 
@@ -31,16 +31,25 @@ export class LoginPage extends Component{
         .catch(e=>console.log(e))
     }
 
+    loginUser =() =>{
+        login(this.state.newUser)
+        .then(user=>{
+            this.props.history.push('/');
+        })
+        .catch(e=>console.log(e));
+    }
 
 
     render(){
         return(
             <div>
-                <input onChange={this.onChange} name="username" placeholder="username" type="text"/>
+                {/* <input onChange={this.onChange} name="username" placeholder="username" type="text"/> */}
                 <input onChange={this.onChange} name="email" placeholder="email" type="text"/>
                 <input onChange={this.onChange} name="password" placeholder="password" type="password"/>
-                <input onChange={this.onChange} name="password2" placeholder="repite" type="password"/>
-                <button onClick={this.sendUser} disabled={this.state.newUser.password !== this.state.newUser.password2 ? true: false}>Registrarse</button>
+                <button onClick={this.loginUser}>Login</button>
+                
+                {/* <input onChange={this.onChange} name="password2" placeholder="repite" type="password"/>
+                <button onClick={this.sendUser} disabled={this.state.newUser.password !== this.state.newUser.password2 ? true: false}>Registrarse</button> */}
             </div>
         );
     }
